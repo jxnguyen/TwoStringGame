@@ -5,31 +5,43 @@ import java.util.*;
 		- Generate positions
 */
 
-class Solution {
+public class Solution {
 
 	// MAIN
 	//
 	public static void main(String[] args) {
 
-		String[] strings = generateSubstrings("books");
-		for (String s : strings) {
-			System.out.println(s);
-		}
+		Game game = new Game("cat", "dog");
+
+	}
+}
+
+// GAME | The Game class represents an instance of the Two Word Game for
+// 			| two strings A & B.
+//
+class Game {
+
+	String A;
+	String B;
+
+	Game(String a, String b) {
+		A = a;
+		B = b;
 	}
 
-	// GENERATE SUBSTRINGS | Return lexicographically sorted array of all
-	// 										 | substrings of A.
+	// SUBSTRINGS | Return lexicographically sorted array of all
+	//					  | substrings of A.
 	//
-	private static String[] generateSubstrings(String A) {
+	String[] substrings(String A) {
 
 		HashSet<String> substrings = new HashSet<String>();
 		// empty string
 		substrings.add("");
 		// for each start index
 		for (int i = 0; i < A.length(); i++)
-			// for each end index
-			for (int j = i+1; j <= A.length(); j++)
-				substrings.add(A.substring(i,j));
+		// for each end index
+		for (int j = i+1; j <= A.length(); j++)
+		substrings.add(A.substring(i,j));
 
 		// convert to array & sort
 		String[] strings = new String[substrings.size()];
@@ -38,7 +50,32 @@ class Solution {
 		return strings;
 	}
 
-	
+	// START POSITIONS | Return lexicographically sorted array of all start
+	// 								 | positions for strings A & B.
+	//
+	Position[] startPositions() {
+
+		String[] subsA = substrings(A);
+		String[] subsB = substrings(B);
+		Position[] positions = new Position[subsA.length * subsB.length];
+		int i = 0;
+		// for each substring of A
+		for (String a : subsA) {
+			// for each substring of B
+			for (String b : subsB) {
+				positions[i] = new Position(a, b);
+				i++;
+			}
+		}
+		return positions;
+	}
+
+	void printPositions() {
+		Position[] pos = startPositions();
+		for (Position p : pos) {
+			System.out.println(p);
+		}
+	}
 
 	// POSITION | The Position class represents a game position (a,b), where
 	// 					| a & b are valid substrings of the main Strings A & B
@@ -52,6 +89,12 @@ class Solution {
 		Position(String x, String y) {
 			a = x;
 			b = y;
+		}
+
+		// TO STRING | Return string representation.
+		//
+		public String toString() {
+			return String.format("(%s, %s)", a, b);
 		}
 	}
 }
