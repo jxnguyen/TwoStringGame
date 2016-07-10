@@ -1,18 +1,26 @@
 import java.util.*;
-
-/*
-		- isWinningPosition
-*/
+ /* TWO STRING GAME:
+ 	*
+ 	* 	https://www.hackerrank.com/challenges/two-strings-game
+	*/
 
 public class Solution {
-
 	// MAIN
 	//
 	public static void main(String[] args) {
-
-		Game game = new Game("cat", "dog");
-		// game.printPositions();
-		game.solve();
+		// read input
+		Scanner scan = new Scanner(System.in);
+		int n = scan.nextInt();
+		int m = scan.nextInt();
+		int k = scan.nextInt();
+		// game words
+		String A, B;
+		A = scan.next();
+		B = scan.next();
+		scan.close();
+		// solve
+		Game game = new Game(A, B);
+		game.solve(5);
 	}
 }
 
@@ -29,8 +37,24 @@ class Game {
 		B = b;
 	}
 
-	public void solve() {
-		System.out.println(isWinningPosition(new Position("cat", "dog")));
+	// SOLVE | Print the k'th winning position if it exists, else 'no solution'.
+	//
+	public void solve(int k) {
+
+		Position[] positions = startPositions();
+		int count = 0;
+		Position kthPos = null;
+
+		// for each start position
+		for (Position p : positions) {
+			// if winning position
+			if (isWinningPosition(p))
+				if (count++ == k) {
+					kthPos = p;
+					break;
+				}
+		}
+		System.out.println(kthPos == null ? "no solution" : kthPos);
 	}
 
 	// SUBSTRINGS | Return lexicographically sorted array of all
@@ -75,7 +99,7 @@ class Game {
 	}
 
 	// PRINT POSITIONS | Print all start positions.
-	// 
+	//
 	public void printPositions() {
 		Position[] pos = startPositions();
 		for (Position p : pos) {
