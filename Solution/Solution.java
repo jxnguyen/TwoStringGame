@@ -54,7 +54,10 @@ class Game {
 					break;
 				}
 		}
-		System.out.println(kthPos == null ? "no solution" : kthPos);
+		if (kthPos == null)
+			System.out.println('no solution');
+		else
+			System.out.printf("%s\n%s\n", kthPos.a, kthPos.b);
 	}
 
 	// SUBSTRINGS | Return lexicographically sorted array of all
