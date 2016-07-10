@@ -1,7 +1,8 @@
 import java.util.*;
 
 /*
-		- Generate all substrings of a String A and sort in ascending order.
+		- Position class
+		- Generate positions
 */
 
 class Solution {
@@ -35,5 +36,22 @@ class Solution {
 		strings = substrings.toArray(strings);
 		Arrays.sort(strings);
 		return strings;
+	}
+
+	
+
+	// POSITION | The Position class represents a game position (a,b), where
+	// 					| a & b are valid substrings of the main Strings A & B
+	// 					| respectively.
+	//
+	class Position {
+
+		String a;
+		String b;
+
+		Position(String x, String y) {
+			a = x;
+			b = y;
+		}
 	}
 }
