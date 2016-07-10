@@ -20,7 +20,7 @@ public class Solution {
 		scan.close();
 		// solve
 		Game game = new Game(A, B);
-		game.solve(5);
+		game.solve(k);
 	}
 }
 
